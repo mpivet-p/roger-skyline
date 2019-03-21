@@ -12,12 +12,14 @@ fi
 
 # SERVER SETUP
 
-if [ $WEB == "Y" ] || [ $WEB == "y" ]
-then
 	read -p "Please enter username : " NAME
-	# PACKAGE DOWNLOADING
 	apt-get update
 	apt-get upgrade
+
+
+if [ $WEB == "Y" ] || [ $WEB == "y" ]
+then
+	# PACKAGE DOWNLOADING
 	apt-get install sudo
 	apt-get install vim
 	apt-get install git
@@ -25,6 +27,8 @@ then
 	apt-get install net-tools
 	apt-get install iptables
 	apt-get install mailutils
+	apt-get install sendmail-bin
+	apt-get install sendmail
 	apt-get install fail2ban
 
 	# CONFIG
@@ -52,3 +56,4 @@ then
 	sed -i '4s|.*|REF_SUM="AAA"|' /home/$NAME/.server_conf/.cron_watch.bash
 	sed -i "4s|AAA|$REF_SUM|" /home/$NAME/.server_conf/.cron_watch.bash
 fi
+apt-get install apache2
