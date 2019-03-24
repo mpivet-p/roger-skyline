@@ -30,6 +30,7 @@ then
 	apt-get install sendmail-bin -y
 	apt-get install sendmail -y
 	apt-get install fail2ban -y
+	apt-get install portsentry -y
 
 	# CONFIG
 	git clone "https://github.com/mpivet-p/server_conf.git" /home/$NAME/.server_conf;
@@ -67,12 +68,16 @@ then
 
 	# MAIL PATCH
 	sed -i '4s|root:.*|root: root' /etc/aliases
+
+	# PORTSENTRY CONFIG
 fi
 
 # BEGINNING WEBSITE DEPLOY
 apt-get install apache2 -y
+apt-get install libapache2-mod-php7.0 -y
 git clone https://github.com/mpivet-p/RS_WEB.git /var/www/html/www.myroger.fr
 rm -rf /etc/apache2/sites-available/*
-mv /var/www/html/www.myroger.fr/00-www.myroger.fr.conf /etc/apache2/site-available/00-www.myroger.fr.conf
-a2ensite 00-www.myroger.com
+rm -rf /etc/apache2/sites-enabled/*
+mv /var/www/html/www.myroger.fr/00-www.myroger.fr.conf /etc/apache2/sites-available/00-www.myroger.fr.conf
+a2ensite 00-www.myroger.fr
 service apache2 restart
