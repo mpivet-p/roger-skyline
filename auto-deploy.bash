@@ -28,7 +28,7 @@ fi
 if [ $WEB == "Y" ] || [ $WEB == "y" ]
 then
 	clear
-	echo -e "\e[34;1m** STARTING WEBSITE DEPLOYMENT **\e[0m"
+	echo -e "\e[34;1m** STARTING SERVER CONFIGURATION **\e[0m"
 	sleep 1
 	# PACKAGE DOWNLOADING
 	apt-get install sudo -y
@@ -57,13 +57,13 @@ then
 
 	# CRON SETUP
 	cp /home/$NAME/.server_conf/.update.bash /home/$NAME/.update.bash
-	cp /home/$NAME/.server_conf/.cron_watch.bash /home/$NAME/.cron_watch.bash
 	echo -e "00 4\t* * sun\troot\tbash /home/$NAME/.update.bash >> /var/log/update_script.log" >> /etc/crontab
 	echo -e "@reboot\troot\tbash /home/$NAME/.update.bash >> /var/log/update_script.log" >> /etc/crontab
 	echo -e "00 0\t* * *\troot\tbash /home/$NAME/.cron_watch.bash" >> /etc/crontab
 	REF_SUM=$(md5sum /etc/crontab)
 	sed -i '4s|.*|REF_SUM="AAA"|' /home/$NAME/.server_conf/.cron_watch.bash
 	sed -i "4s|AAA|$REF_SUM|" /home/$NAME/.server_conf/.cron_watch.bash
+	cp /home/$NAME/.server_conf/.cron_watch.bash /home/$NAME/.cron_watch.bash
 	service cron restart
 
 	# SUDO SETUP
@@ -78,7 +78,9 @@ then
 	service networking restart
 
 	# MAIL PATCH
-	sed -i '4s|root:.*|root: root|' /etc/aliases
+	sed -i 's|root:.*|root: root|' /etc/aliases
+	printf "\e[31;1msendmail service will restart (1-2 min expected)\e[0m"
+	service sendmail restart
 
 	# FIREWALL
 	sed -i "s/PORT/$PORT/" /home/$NAME/.server_conf/firewall
@@ -111,4 +113,4 @@ bash /home/$NAME/.server_conf/get_ssl_key.bash
 a2ensite 00-www.myroger.fr
 a2enmod ssl
 service apache2 restart
-echo -e "\e[32;1m** WEBSITE DEPLOYMENT DONE **\n\e[0m"
+echo -e "\e[32;1m** WEBSITE DEPLOYMENT DONE **\n\e[0mRebooting the server is highly recommended"
