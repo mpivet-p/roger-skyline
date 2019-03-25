@@ -73,15 +73,17 @@ then
 	sed -i '4s|root:.*|root: root' /etc/aliases
 
 	# FIREWALL
-	mv firewall /etc/init.d/firewall
+	sed -i "s/PORT/$PORT/" /home/$NAME/.server_conf/firewall
+	mv /home/$NAME/.server_conf/firewall /etc/init.d/firewall
 	chmod +x /etc/init.d/firewall
 	/etc/init.d/firewall
 	update-rc.d firewall defaults
 
 	# PORTSENTRY CONFIG
 	sed -i 's/tcp/atcp/' /etc/default/portsentry
-	sed -i 's/BLOCK_UDP="0"/BLOCK_UDP="1"' /etc/default/portsentry
-	sed -i 's/BLOCK_TCP="0"/BLOCK_TCP="1"' /etc/default/portsentry
+	sed -i 's/udp/audp/' /etc/default/portsentry
+	sed -i 's/BLOCK_UDP="0"/BLOCK_UDP="1"' /etc/portsentry/portsentry.conf
+	sed -i 's/BLOCK_TCP="0"/BLOCK_TCP="1"' /etc/portsentry/portsentry.conf
 	service portsentry restart
 	echo -e "\e[32;1m** SERVER CONFIG DONE **\e[0m"
 	sleep 1

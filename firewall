@@ -22,7 +22,7 @@ iptables -t filter -A INPUT -p icmp -j ACCEPT
 iptables -t filter -A OUTPUT -p icmp -j ACCEPT
 
 # On autorise GIT
-iptables -t filter -A INPUT -p tcp --dport PORT -j ACCEPT
+iptables -t filter -A INPUT -p tcp --dport 9418 -j ACCEPT
 
 # On autorise le SSH (à adapter suivant votre cas)
 iptables -t filter -A INPUT -p tcp --dport PORT -j ACCEPT
