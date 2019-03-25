@@ -82,6 +82,7 @@ then
 	sed -i 's/tcp/atcp/' /etc/default/portsentry
 	sed -i 's/BLOCK_UDP="0"/BLOCK_UDP="1"' /etc/default/portsentry
 	sed -i 's/BLOCK_TCP="0"/BLOCK_TCP="1"' /etc/default/portsentry
+	service portsentry restart
 	echo -e "\e[32;1m** SERVER CONFIG DONE **\e[0m"
 	sleep 1
 	clear
