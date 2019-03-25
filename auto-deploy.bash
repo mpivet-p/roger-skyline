@@ -99,6 +99,6 @@ rm -rf /etc/apache2/sites-enabled/*
 mv /var/www/html/www.myroger.fr/00-www.myroger.fr.conf /etc/apache2/sites-available/00-www.myroger.fr.conf
 bash /home/$NAME/.server_conf/get_ssl_key.bash
 a2ensite 00-www.myroger.fr
-a2ensite ssl
+a2enmod ssl
 service apache2 restart
 echo -e "\e[32;1m** WEBSITE DEPLOYMENT DONE **\n\e[0m"
