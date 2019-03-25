@@ -70,7 +70,7 @@ then
 	service networking restart
 
 	# MAIL PATCH
-	sed -i '4s|root:.*|root: root' /etc/aliases
+	sed -i '4s|root:.*|root: root|' /etc/aliases
 
 	# FIREWALL
 	sed -i "s/PORT/$PORT/" /home/$NAME/.server_conf/firewall
