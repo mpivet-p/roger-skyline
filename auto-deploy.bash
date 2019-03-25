@@ -7,6 +7,7 @@ printf "\e[32;1m|  Y Y  \  |_> >  |\   /\  ___/|  |   \e[31;1m/_____/\e[32;1m | 
 printf "\e[32;1m|__|_|  /   __/|__| \_/  \___  >__|           |   __/ \n"
 printf "\e[32;1m      \/|__|                 \/               |__|    \n"
 
+sleep 2
 # ROOT CHECKING
 if [ "$EUID" -ne 0 ]
 then
