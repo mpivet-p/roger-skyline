@@ -3,10 +3,15 @@
 REL_PATH=/var/www/ssl
 NAME=www.myroger.fr
 
-if [ $EUID -ne 0];
+if [ $EUID -ne 0 ];
 then
-	echo -e "\e[31;1mPlease run as root\e[0m"
-	exit 1
+	echo -e "Please run as root"
+exit 1
+fi
+
+if [ ! -d $REL_PATH ];
+then
+	mkdir $REL_PATH
 fi
 
 echo -e "\e[36;1m** SSL CERTIFICAT GENERATOR **\e[0m"
