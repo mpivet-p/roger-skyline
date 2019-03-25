@@ -19,6 +19,9 @@ fi
 
 if [ $WEB == "Y" ] || [ $WEB == "y" ]
 then
+	clear
+	echo -e "\e[34;1m** STARTING WEBSITE DEPLOYMENT **\e[0m"
+	sleep 1
 	# PACKAGE DOWNLOADING
 	apt-get install sudo -y
 	apt-get install vim -y
@@ -69,15 +72,31 @@ then
 	# MAIL PATCH
 	sed -i '4s|root:.*|root: root' /etc/aliases
 
+	# FIREWALL
+	mv firewall /etc/init.d/firewall
+	chmod +x /etc/init.d/firewall
+	/etc/init.d/firewall
+	update-rc.d firewall defaults
+
 	# PORTSENTRY CONFIG
+	sed -i 's/tcp/atcp/' /etc/default/portsentry
+	sed -i 's/BLOCK_UDP="0"/BLOCK_UDP="1"' /etc/default/portsentry
+	sed -i 's/BLOCK_TCP="0"/BLOCK_TCP="1"' /etc/default/portsentry
+	echo -e "\e[32;1m** SERVER CONFIG DONE **\e[0m"
+	sleep 1
+	clear
 fi
 
 # BEGINNING WEBSITE DEPLOY
+echo -e "\e[34;1m** STARTING WEBSITE DEPLOYMENT **\e[0m"
+sleep 2
 apt-get install apache2 -y
 apt-get install libapache2-mod-php7.0 -y
 git clone https://github.com/mpivet-p/RS_WEB.git /var/www/html/www.myroger.fr
 rm -rf /etc/apache2/sites-available/*
 rm -rf /etc/apache2/sites-enabled/*
 mv /var/www/html/www.myroger.fr/00-www.myroger.fr.conf /etc/apache2/sites-available/00-www.myroger.fr.conf
+bash /home/$NAME/.server_conf/get_ssl_key.bash
 a2ensite 00-www.myroger.fr
 service apache2 restart
+echo -e "\e[32;1m** WEBSITE DEPLOYMENT DONE **\n\e[0m"
