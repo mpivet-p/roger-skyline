@@ -1,12 +1,17 @@
 #!/bin/bash
 
-REL_PATH=/var/www/ssl
 NAME=www.myroger.fr
+REL_PATH=/var/www/ssl/www.myroger.fr
 
 if [ $EUID -ne 0 ];
 then
 	echo -e "Please run as root"
 exit 1
+fi
+
+if [ ! -d /var/www/ssl ];
+then
+	mkdir /var/www/ssl
 fi
 
 if [ ! -d $REL_PATH ];
