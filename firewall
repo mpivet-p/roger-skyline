@@ -23,8 +23,10 @@ iptables -t filter -A OUTPUT -p icmp -j ACCEPT
 
 # On autorise GIT
 iptables -t filter -A INPUT -p tcp --dport 9418 -j ACCEPT
+iptables -t filter -A OUTPUT -p tcp --dport 9418 -j ACCEPT
 
 # On autorise le SSH (à adapter suivant votre cas)
+iptables -t filter -A INPUT -p tcp --dport PORT -j ACCEPT
 iptables -t filter -A INPUT -p tcp --dport PORT -j ACCEPT
 
 iptables -t filter -A OUTPUT -p tcp --dport 53 -j ACCEPT
@@ -35,6 +37,8 @@ iptables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
 # HTTP/S
 iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -t filter -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
 
 # Clock
 iptables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
