@@ -59,3 +59,5 @@ iptables -A INPUT -p tcp --tcp-flags ALL ALL -m limit --limit 1/h -j ACCEPT
 
 # Synflood protection
 iptables -A INPUT -p tcp --syn -m limit --limit 2/s --limit-burst 30 -j ACCEPT
+iptables -I INPUT -p tcp -m connlimit --connlimit-above 50 --connlimit-mask 20 -j DROP
+iptables -I INPUT -p udp -m connlimit --connlimit-above 50 --connlimit-mask 20 -j DROP

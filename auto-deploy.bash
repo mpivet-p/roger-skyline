@@ -5,7 +5,7 @@ printf "\e[32;1m  _____ ______ |__|__  __ _____/  |_          ______  \n"
 printf "\e[32;1m /     \\____ \|  \  \/ // __ \    __\ \e[31;1m ______\e[32;1m \____ \ \n"
 printf "\e[32;1m|  Y Y  \  |_> >  |\   /\  ___/|  |   \e[31;1m/_____/\e[32;1m |  |_> >\n"
 printf "\e[32;1m|__|_|  /   __/|__| \_/  \___  >__|           |   __/ \n"
-printf "\e[32;1m      \/|__|                 \/               |__|    \n\e[0m"
+printf "\e[32;1m      \/|__|                 \/               |__|    \n\e[0m\n"
 
 sleep 2
 # ROOT CHECKING
@@ -97,10 +97,10 @@ then
 	service portsentry restart
 	echo -e "\e[32;1m** SERVER CONFIG DONE **\e[0m"
 	sleep 1
-	clear
 fi
 
 # BEGINNING WEBSITE DEPLOY
+clear
 echo -e "\e[34;1m** STARTING WEBSITE DEPLOYMENT **\e[0m"
 sleep 2
 apt-get install apache2 -y
@@ -109,6 +109,7 @@ git clone https://github.com/mpivet-p/RS_WEB.git /var/www/html/www.myroger.fr
 rm -rf /etc/apache2/sites-available/*
 rm -rf /etc/apache2/sites-enabled/*
 mv /var/www/html/www.myroger.fr/00-www.myroger.fr.conf /etc/apache2/sites-available/00-www.myroger.fr.conf
+clear
 bash /home/$NAME/.server_conf/get_ssl_key.bash
 a2ensite 00-www.myroger.fr
 a2enmod ssl
