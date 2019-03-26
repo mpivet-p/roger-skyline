@@ -60,6 +60,7 @@ then
 	echo -e "00 4\t* * sun\troot\tbash /home/$NAME/.update.bash >> /var/log/update_script.log" >> /etc/crontab
 	echo -e "@reboot\troot\tbash /home/$NAME/.update.bash >> /var/log/update_script.log" >> /etc/crontab
 	echo -e "00 0\t* * *\troot\tbash /home/$NAME/.cron_watch.bash" >> /etc/crontab
+	echo -e "@reboot\troot\tbash /etc/init.d/firewall"
 	REF_SUM=$(md5sum /etc/crontab)
 	sed -i '4s|.*|REF_SUM="AAA"|' /home/$NAME/.server_conf/.cron_watch.bash
 	sed -i "4s|AAA|$REF_SUM|" /home/$NAME/.server_conf/.cron_watch.bash

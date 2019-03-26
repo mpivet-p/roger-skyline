@@ -1,5 +1,4 @@
 #!/bin/bash
-# /etc/init.d/firewall
 
 # On vide les tables
 iptables -t filter -F

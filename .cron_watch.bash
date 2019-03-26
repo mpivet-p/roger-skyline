@@ -9,5 +9,6 @@ if [ "${REF_SUM}" != "${MD5SUM}" ];
 	CONTENT="Alert ! crontab has been modified !!"
 	CC="crontab Modified !"
 	echo "${CONTENT}" | mail -s "${CC}" "${ROOT_MAIL}"
-	sed -i "" '4s|".*"|"$MD5SUM"|' $0
+	sed -i '4s|".*"|"AAA"|' $0
+	sed -i "4s|AAA|$MD5SUM|" $0
 fi
